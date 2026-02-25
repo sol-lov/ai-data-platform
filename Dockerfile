@@ -1,7 +1,7 @@
 # -----------------------------
 # Install dependencies
 # -----------------------------
-    FROM node:18-bullseye AS deps
+    FROM node:20-bullseye AS deps
     WORKDIR /app
     ENV NODE_ENV=production
     
@@ -12,7 +12,7 @@
     # -----------------------------
     # Build stage
     # -----------------------------
-    FROM node:18-bullseye AS builder
+    FROM node:20-bullseye AS builder
     WORKDIR /app
     ENV NODE_ENV=production
     ENV NEXT_TELEMETRY_DISABLED=1
@@ -30,25 +30,24 @@
     RUN npx prisma db push --force-reset
     RUN npx prisma generate
     
-    # Next.js build (src/ is auto-detected)
+    # Next.js build (src/ auto-detected)
     RUN npm run build
     
     
     # -----------------------------
     # Runner stage
     # -----------------------------
-    FROM node:18-bullseye AS runner
+    FROM node:20-bullseye AS runner
     WORKDIR /app
     ENV NODE_ENV=production
     ENV NEXT_TELEMETRY_DISABLED=1
     ENV PORT=3000
     ENV HOSTNAME=0.0.0.0
     
-    # Copy only what is needed for runtime
     COPY --from=builder /app/public ./public
     COPY --from=builder /app/prisma ./prisma
     
-    # Next.js standalone output (includes server.js)
+    # Next.js standalone output
     COPY --from=builder /app/.next/standalone ./
     COPY --from=builder /app/.next/static ./.next/static
     
