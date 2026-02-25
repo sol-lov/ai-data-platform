@@ -56,5 +56,10 @@
     
     EXPOSE 3000
     EXPOSE 5555
+
+    
+    ARG DATABASE_URL
+    ENV DATABASE_URL=${DATABASE_URL}
     
     CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
+    
