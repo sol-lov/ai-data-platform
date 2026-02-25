@@ -23,8 +23,7 @@
     ENV NEXT_PUBLIC_BACKEND_HTTP_BASE=${NEXT_PUBLIC_BACKEND_HTTP_BASE}
     ENV NEXT_PUBLIC_BACKEND_WS_BASE=${NEXT_PUBLIC_BACKEND_WS_BASE}
 
-    ARG DATABASE_URL
-    ENV DATABASE_URL=${DATABASE_URL}
+
 
 
     
@@ -32,7 +31,7 @@
     COPY . .
     
     # Prisma
-    RUN npx prisma db push --force-reset
+    # RUN npx prisma db push --force-reset
     RUN npx prisma generate
     
     # Next.js build (src/ auto-detected)
