@@ -33,7 +33,7 @@
     # Prisma
     # RUN npx prisma db push --force-reset
     RUN npx prisma generate
-    
+    RUN npx prisma migrate deploy
     # Next.js build (src/ auto-detected)
     RUN npm run build
     
