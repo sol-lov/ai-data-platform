@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(USER)
+  isActive  Boolean  @default(true)
+  datasets  Dataset[]
+  sessions  ChatSession[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Dataset {
+  id          String        @id @default(cuid())
+  name        String
+  filename    String
+  sizeBytes   Int
+  mimeType    String
+  rowCount    Int
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String
+  records     Record[]
+  chatSessions ChatSession[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Record {
+  id        String   @id @default(cuid())
+  dataset   Dataset  @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  datasetId String
+  index     Int
+  data      Json
+  createdAt DateTime @default(now())
+
+  @@index([datasetId, index])
+}
+
+model ChatSession {
+  id        String        @id @default(cuid())
+  title     String?
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  dataset   Dataset?      @relation(fields: [datasetId], references: [id])
+  datasetId String?
+  messages  ChatMessage[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([userId, datasetId])
+}
+
+model ChatMessage {
+  id         String      @id @default(cuid())
+  session    ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId  String
+  role       ChatRole
+  content    String
+  createdAt  DateTime    @default(now())
+
+  @@index([sessionId, createdAt])
+}
+
+enum ChatRole {
+  user
+  assistant
+  system
+}
