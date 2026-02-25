@@ -31,7 +31,7 @@
     COPY . .
     
     # Prisma
-    RUN npx prisma db push --force-reset
+    # RUN npx prisma db push --force-reset
     RUN npx prisma generate
     # Next.js build (src/ auto-detected)
     RUN npm run build
@@ -57,5 +57,4 @@
     EXPOSE 3000
     EXPOSE 5555
     
-    CMD ["node", "server.js"]
-    
+    CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
