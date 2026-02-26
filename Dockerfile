@@ -61,7 +61,4 @@
     EXPOSE 5555
 
     
-    ARG DATABASE_URL
-    ENV DATABASE_URL=${DATABASE_URL}
-    
-    CMD ["sh", "-c", "node server.js"]
+    CMD ["node", "server.js"]
