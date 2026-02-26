@@ -52,7 +52,7 @@ export async function GET(req: NextRequest, context: any) {
     return NextResponse.json(
       {
         dataset,
-        rows: records.map((r) => ({
+        rows: records.map((r: any) => ({
           id: r.id,
           index: r.index,
           data: r.data,

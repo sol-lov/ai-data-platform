@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.33",
-    "prisma": "^7.4.1",
-    "@prisma/adapter-pg": "^7.4.1",
-    "@prisma/client": "^7.4.1",
+    "prisma": "5.22.0",
+    "@prisma/client": "5.22.0",
+    "@prisma/adapter-pg": "5.22.0",
     "@radix-ui/themes": "^3.3.0",
     "ai": "^6.0.100",
     "bcryptjs": "^3.0.3",

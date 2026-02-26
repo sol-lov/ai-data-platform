@@ -31,10 +31,7 @@
     COPY . .
     
     # Prisma
-    # RUN npx prisma db push --force-reset
-    ARG DATABASE_URL
-    ENV DATABASE_URL=$DATABASE_URL
-    RUN echo DATABASE_URL=$DATABASE_URL
+    RUN npx prisma db push --force-reset 
     RUN npx prisma generate
     # Next.js build (src/ auto-detected)
     RUN npm run build
@@ -60,5 +57,5 @@
     EXPOSE 3000
     EXPOSE 5555
 
-    
-    CMD ["sh", "-c", "npx prisma generate && node server.js"]
+    CMD ["node", "server.js"]
+

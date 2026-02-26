@@ -40,7 +40,7 @@ export default async function DatasetPage({ params }: Params) {
     take: pageSize,
   });
 
-  const initialRows = initialRecords.map((r) => ({
+  const initialRows = initialRecords.map((r:any) => ({
     id: r.id,
     index: r.index,
     data: r.data as Record<string, unknown>,

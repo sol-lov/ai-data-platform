@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
       take: MAX_ROWS_FOR_PROMPT,
     });
 
-    const samplePayload = sampleRows.map((r) => r.data);
+    const samplePayload = sampleRows.map((r: any) => r.data);
 
     const systemPrompt = [
       "You are an AI data analyst embedded in a web app.",

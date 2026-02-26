@@ -76,7 +76,7 @@ export default async function DashboardPage() {
             ) : (
               <div className="space-y-2 rounded-2xl border bg-card/70 p-4 text-sm">
                 <ul className="space-y-2">
-                  {datasets.map((d) => (
+                  {datasets.map((d: any) => (
                     <li
                       key={d.id}
                       className="flex items-center justify-between gap-3"
