@@ -32,10 +32,10 @@
     
     # Prisma
     # RUN npx prisma db push --force-reset
-    # ARG DATABASE_URL
-    # ENV DATABASE_URL=$DATABASE_URL
-    # RUN echo DATABASE_URL=$DATABASE_URL
-    # RUN npx prisma generate
+    ARG DATABASE_URL
+    ENV DATABASE_URL=$DATABASE_URL
+    RUN echo DATABASE_URL=$DATABASE_URL
+    RUN npx prisma generate
     # Next.js build (src/ auto-detected)
     RUN npm run build
     
