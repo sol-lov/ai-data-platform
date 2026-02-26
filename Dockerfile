@@ -61,5 +61,4 @@
     ARG DATABASE_URL
     ENV DATABASE_URL=${DATABASE_URL}
     
-    CMD ["sh", "-c", "npx prisma db push --force-reset && node server.js"]
-    
+    CMD ["sh", "-c", "echo DATABASE_URL=$DATABASE_URL && npx prisma migrate deploy && node server.js"]
