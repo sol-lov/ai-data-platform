@@ -1,7 +1,17 @@
 import { generateText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
+import {  createGateway  } from 'ai';
+
 
 const openai = createOpenAI({
+  baseURL:
+    process.env.OPENAI_BASE_URL ||
+    "https://effective-couscous-j757pqq7wvjf7qr-11434.app.github.dev/v1",
+  apiKey: process.env.OPENAI_API_KEY || "",
+});
+
+
+const gateway  = createGateway ({
   baseURL:
     process.env.OPENAI_BASE_URL ||
     "https://effective-couscous-j757pqq7wvjf7qr-11434.app.github.dev/v1",
@@ -22,7 +32,7 @@ export async function generateAiText({
   const modelId = modelName || process.env.MODEL_NAME || "gpt-oss:120b-cloud";
 
   const { text } = await generateText({
-    model: openai(modelId),
+    model: gateway(modelId),
     prompt: `${systemPrompt}\n\nUser: ${userPrompt}`,
   });
 
