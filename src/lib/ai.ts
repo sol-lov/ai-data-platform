@@ -32,7 +32,7 @@ export async function generateAiText({
   const modelId = modelName || process.env.MODEL_NAME || "gpt-oss:120b-cloud";
 
   const { text } = await generateText({
-    model: gateway(modelId),
+    model: openai(modelId),
     prompt: `${systemPrompt}\n\nUser: ${userPrompt}`,
   });
 
